@@ -13,8 +13,11 @@ export class StudentService{
 
   public postStudent(student: Student) : Observable<any>{
 
+    //Base64 Encoded username:authtoken 
+    //username is career.helpdesk@djtrust.org
+    //authtoken can be generated using https://api.metroleads.com/auth/issue_token?username=xxx&password=xxx
     let header = {
-      'Authorization' : 'Basic YjczNDExNjgtMmVlOS00ODRhLWIwMjMtODM1YWViNGJlNmU0'
+      'Authorization' : 'Basic Y2FyZWVyLmhlbHBkZXNrQGRqdHJ1c3Qub3JnOmI3MzQxMTY4LTJlZTktNDg0YS1iMDIzLTgzNWFlYjRiZTZlNA=='
     }
 
      let payload = {
