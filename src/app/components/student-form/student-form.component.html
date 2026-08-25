@@ -1,0 +1,163 @@
+<div class="career-query-form">
+  <div class="card">
+    <div class="card-header">
+
+       <span>
+        Career Help Desk is an initiative of Aga Khan Education Board, India to provide
+        a web platform for jamati students to ask their career related queries.
+        <br />
+        We request you to write your query in detail for us to understand your question and get back to you with appropriate response.
+       </span>
+    </div>
+      <div class="card-body">
+        <div class="alert alert-primary" role="alert" *ngIf="msg">
+           {{msg}}
+        </div>
+        <form [formGroup]="studentForm" (submit)="onFormSubmit()">
+          <div class="row">
+            <div class="form-group col-sm-4">
+              <label for="inputEmail4">Full Name*</label>
+              <input type="text" class="form-control" id="inputEmail4" placeholder="Please enter your full name"
+              formControlName="full_name">
+              <span class="error" *ngIf="studentForm.controls['full_name'].invalid && studentForm.controls['full_name'].touched">
+                <span *ngIf="studentForm.controls['full_name'].errors['required']">Name is required</span>
+                <span *ngIf="studentForm.controls['full_name'].errors['pattern']">Valid name please</span>
+              </span>
+            </div>
+
+            <div class="form-group col-sm-4">
+              <label for="inputEmail4">Phone Number*</label>
+              <input type="text" class="form-control" id="inputEmail4" placeholder="Please enter your phone number"
+              formControlName="phone_num">
+              <span class="error" *ngIf="studentForm.controls['phone_num'].invalid && studentForm.controls['phone_num'].touched">
+                <span *ngIf="studentForm.controls['phone_num'].errors['required']">Phone Number is required</span>
+                <span *ngIf="studentForm.controls['phone_num'].errors['pattern']">Enter 10 digit valid phone number</span>
+              </span>
+            </div>
+            <div class="form-group col-sm-4">
+              <label for="inputEmail4">Email*</label>
+              <input type="email" class="form-control" id="inputEmail4" placeholder="Please enter your email address"
+              formControlName="email_id">
+              <span class="error" *ngIf="studentForm.controls['email_id'].invalid && studentForm.controls['email_id'].touched">
+                <span *ngIf="studentForm.controls['email_id'].errors['required']">Email is required</span>
+                <span *ngIf="studentForm.controls['email_id'].errors['email']">Enter valid email</span>
+              </span>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="form-group col-sm-4">
+              <label for="inputEmail4">Date Of Birth*</label>
+              <input type="date" class="form-control" id="inputEmail4" placeholder="Please select your DOB"
+              formControlName="date_of_birth" >
+              <span class="error" *ngIf="studentForm.controls['date_of_birth'].invalid && studentForm.controls['date_of_birth'].touched">
+                <span *ngIf="studentForm.controls['date_of_birth'].errors['required']">Date of Birth is required</span>
+               </span>
+            </div>
+            <div class="form-group col-sm-4">
+              <label for="inputState">Regional Council*</label>
+              <select id="inputState" class="form-control" formControlName="regional_council">
+                 <option *ngFor="let r of regionalCouncils" value="{{r}}">
+                  {{r}}
+                </option>
+              </select>
+              <span class="error" *ngIf="studentForm.controls['regional_council'].invalid && studentForm.controls['regional_council'].touched">
+                <span *ngIf="studentForm.controls['regional_council'].errors['required']">Please select your council</span>
+               </span>
+            </div>
+            <div class="form-group col-sm-4">
+              <label for="inputEmail4">Local Council</label>
+              <input type="text" class="form-control" id="inputEmail4" placeholder="Local Council"
+              formControlName="local_council">
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="form-group col-md-4">
+              <label for="inputEmail4">JamatKhana</label>
+              <input type="text" class="form-control" id="inputEmail4" placeholder="Jamatkhana"
+              formControlName="jamatkhana">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="inputState">State</label>
+              <select id="inputState" class="form-control" formControlName="state">
+                 <option value="Maharashtra">Maharashtra</option>
+                <option value="Gujarat">Gujarat</option>
+                <option value="Telangana">Telangana</option>
+                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Other">Not in the list</option>
+              </select>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="inputState">City</label>
+              <input type="text" class="form-control" id="inputEmail4" placeholder="Please enter your city"
+              formControlName="city">
+            </div>
+          </div>
+          
+         <div class="row mt-4">
+             <div class="form-group col-md-4">
+                <label for="inputState">Education Qualification / Standard*</label>
+                <select id="inputState" class="form-control" formControlName="education_standard">
+                   <option *ngFor="let e of educationStandard" value="{{e}}">{{e}}</option>
+                </select>
+                <span class="error" *ngIf="studentForm.controls['education_standard'].invalid && studentForm.controls['education_standard'].touched">
+                  <span *ngIf="studentForm.controls['education_standard'].errors['required']">Please select the value from the list</span>
+                 </span>
+              </div>
+          
+              <div class="form-group col-md-4">
+                <label for="inputState">Education Status</label>
+                <select id="inputState" class="form-control" formControlName="education_status">
+                   <option *ngFor="let e of educationStatus" value="{{e}}">{{e}}</option>
+                </select>
+              </div>
+
+              <div class="form-group col-md-4">
+                <label for="inputState">Prior Counseling Done?</label>
+                <select id="inputState" class="form-control" formControlName="prior_counseling_done" (change)="onCouncelingSelect()">
+                   <option *ngFor="let p of priorCounceling" value="{{p}}"> {{p}} </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row  mt-4" *ngIf="showCouncelingBox">
+              <div class="form-group col-md-12">
+                <label for="inputAddress">Career Counseling Details</label>
+                <textarea class="form-control" rows="5" cols="50" formControlName="career_counseling_report"
+                placeholder="Some details will help us guide you better"></textarea>
+              </div>
+            </div>
+
+            <div class="row  mt-4">
+            <div class="form-group col-md-12">
+              <label for="inputState">Query Category*</label>
+              <select id="inputState" class="form-control" formControlName="query_category">
+                <option selected>Choose...</option>
+                <option *ngFor="let q of queryCategory" value="{{q}}"> {{q}} </option>
+              </select>
+              <span class="error" *ngIf="studentForm.controls['query_category'].invalid && studentForm.controls['query_category'].touched">
+                <span *ngIf="studentForm.controls['query_category'].errors['required']">Please select the category</span>
+               </span>
+            </div>
+
+          </div>
+
+          <div class="row  mt-4">
+            <div class="form-group">
+              <label for="inputAddress">Career Query*</label>
+              <textarea class="form-control" rows="5" cols="50" formControlName="career_query" placeholder="What is your concern or question? How can we help you? What information or assistance are you seeking? Kindly provide enough details for us to understand your question and get back to you with appropriate response."></textarea>
+            </div>
+            <span class="error" *ngIf="studentForm.controls['career_query'].invalid && studentForm.controls['career_query'].touched">
+              <span *ngIf="studentForm.controls['career_query'].errors['required']">Please select the query from the list</span>
+             </span>
+          </div>
+          <div class="row  mt-4">
+          <button type="submit" class="btn btn-secondary" [disabled]="!studentForm.valid">Submit Query</button>
+        </div>
+        </form>
+      </div>
+  </div>
+
+</div>
