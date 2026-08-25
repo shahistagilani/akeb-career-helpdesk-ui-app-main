@@ -14,7 +14,7 @@ export class StudentService{
   public postStudent(student: Student) : Observable<any>{
 
     let header = {
-      'Authorization' : 'Basic Y2FyZWVyLmhlbHBkZXNrQGRqdHJ1c3Qub3JnOjU1NTdiNzI2LWQwZDMtNGE2NS05NDUxLWJhN2EwMTE3MzAzYQ=='
+      'Authorization' : 'Basic YjczNDExNjgtMmVlOS00ODRhLWIwMjMtODM1YWViNGJlNmU0'
     }
 
      let payload = {
