@@ -68,10 +68,17 @@ if [[ "$http_status" != "200" ]]; then
   fail "MetroLeads token API returned HTTP $http_status (expected 200). Check credentials and endpoint."
 fi
 
-# The API returns the token as a raw string body — strip any trailing
-# newline/whitespace curl may have captured, but otherwise use it as-is.
+# The API returns the token as a JSON-quoted string body (e.g. "abc-123"),
+# not a bare string. Strip whitespace, then strip a single pair of
+# surrounding double quotes if present, so the token used in the header
+# matches the actual credential rather than including the quote marks.
 new_token="$(tr -d '[:space:]' < /tmp/token_response.txt)"
 rm -f /tmp/token_response.txt
+
+if [[ "$new_token" == \"*\" ]]; then
+  new_token="${new_token%\"}"
+  new_token="${new_token#\"}"
+fi
 
 if [[ -z "$new_token" ]]; then
   fail "MetroLeads token API returned an empty response body."
