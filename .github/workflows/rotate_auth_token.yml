@@ -1,26 +1,21 @@
 name: Rotate Auth Token
-
 on:
   schedule:
-    - cron: '0 3 */13 * *'   # every 13 days, buffer before the 14-day expiry
+    - cron: '30 21 * * 0'   # Sunday 21:30 UTC = Monday 03:00 IST — weekly, well within the 14-day expiry
   workflow_dispatch: {}       # manual trigger button, for testing
-
 permissions:
   contents: write             # needed to push the commit
-
 jobs:
   rotate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Request new token
         id: rotate
         env:
           AUTH_PROVIDER_USERNAME: ${{ secrets.AUTH_PROVIDER_USERNAME }}
           AUTH_PROVIDER_PASSWORD: ${{ secrets.AUTH_PROVIDER_PASSWORD }}
         run: bash scripts/rotate_auth_token.sh
-
       - name: Write new value into config
         run: |
           cat > src/config/authConfig.js << EOF
@@ -30,7 +25,6 @@ jobs:
             AUTH_HEADER_VALUE: '${{ steps.rotate.outputs.basic_auth_value }}',
           };
           EOF
-
       - name: Commit and push if changed
         run: |
           git config user.name "auth-token-bot"
