@@ -20,7 +20,7 @@ export class StudentService{
     //   'Authorization' : 'Basic Y2FyZWVyLmhlbHBkZXNrQGRqdHJ1c3Qub3JnOmI3MzQxMTY4LTJlZTktNDg0YS1iMDIzLTgzNWFlYjRiZTZlNA=='
     // }
 
-    const { AUTH_HEADER_VALUE } = require('./config/authConfig');
+    import { AUTH_HEADER_VALUE } from '../../config/authConfig';
 
     if (!AUTH_HEADER_VALUE) {
       throw new Error('AUTH_HEADER_VALUE is missing from authConfig — check the last rotation run.');
