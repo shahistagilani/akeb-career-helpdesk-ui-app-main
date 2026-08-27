@@ -16,8 +16,18 @@ export class StudentService{
     //Base64 Encoded username:authtoken 
     //username is career.helpdesk@djtrust.org
     //authtoken can be generated using https://api.metroleads.com/auth/issue_token?username=xxx&password=xxx
+    // let header = {
+    //   'Authorization' : 'Basic Y2FyZWVyLmhlbHBkZXNrQGRqdHJ1c3Qub3JnOmI3MzQxMTY4LTJlZTktNDg0YS1iMDIzLTgzNWFlYjRiZTZlNA=='
+    // }
+
+    const { AUTH_HEADER_VALUE } = require('./config/authConfig');
+
+    if (!AUTH_HEADER_VALUE) {
+      throw new Error('AUTH_HEADER_VALUE is missing from authConfig — check the last rotation run.');
+    }
+    
     let header = {
-      'Authorization' : 'Basic Y2FyZWVyLmhlbHBkZXNrQGRqdHJ1c3Qub3JnOmI3MzQxMTY4LTJlZTktNDg0YS1iMDIzLTgzNWFlYjRiZTZlNA=='
+      'Authorization': `Basic ${AUTH_HEADER_VALUE}`
     }
 
      let payload = {
