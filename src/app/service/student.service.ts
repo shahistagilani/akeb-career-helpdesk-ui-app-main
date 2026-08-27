@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment.prod";
 import { Student } from "../model/student.model";
+import { AUTH_HEADER_VALUE } from '../../config/authConfig';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,6 @@ export class StudentService{
     // let header = {
     //   'Authorization' : 'Basic Y2FyZWVyLmhlbHBkZXNrQGRqdHJ1c3Qub3JnOmI3MzQxMTY4LTJlZTktNDg0YS1iMDIzLTgzNWFlYjRiZTZlNA=='
     // }
-
-    import { AUTH_HEADER_VALUE } from '../../config/authConfig';
 
     if (!AUTH_HEADER_VALUE) {
       throw new Error('AUTH_HEADER_VALUE is missing from authConfig — check the last rotation run.');
