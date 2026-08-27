@@ -79,9 +79,17 @@ export class StudentService{
   }
 
   public assignLead(leadId: any, regional_council: string) {
-    let header = {
-      'Authorization' : 'Basic Y2FyZWVyLmhlbHBkZXNrQGRqdHJ1c3Qub3JnOjU1NTdiNzI2LWQwZDMtNGE2NS05NDUxLWJhN2EwMTE3MzAzYQ=='
-    }
+    // let header = {
+    //   'Authorization' : 'Basic Y2FyZWVyLmhlbHBkZXNrQGRqdHJ1c3Qub3JnOjU1NTdiNzI2LWQwZDMtNGE2NS05NDUxLWJhN2EwMTE3MzAzYQ=='
+    // }
+
+    if (!AUTH_HEADER_VALUE) {
+    throw new Error('AUTH_HEADER_VALUE is missing from authConfig — check the last rotation run.');
+  }
+
+  let header = {
+    'Authorization': `Basic ${AUTH_HEADER_VALUE}`
+  }
     let payload = {};
     switch(regional_council){
       case 'Central Northern Eastern India (CNEI)':
